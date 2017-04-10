@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文件</title>
+</head>
+<body>
+
+<input id="files" type="file"  multiple>
+
+<script type="text/javascript">
+/*事件处理程序:
+onabort
+当读取操作被中止时调用.
+onerror
+当读取操作发生错误时调用.
+onload
+当读取操作成功完成时调用.
+onloadend
+当读取操作完成时调用,不管是成功还是失败.该处理程序在onload或者onerror之后调用.
+onloadstart
+当读取操作将要开始之前调用.
+onprogress
+在读取数据过程中周期性调用. */
+//使用FileReader对象,web应用程序可以异步的读取存储在用户计算机上的文件(或者原始数据缓冲)内容
+	var f = document.querySelector("#files");
+
+	f.onchange = function(event){
+		for (var i = 0; i < f.files.length; i++){
+			console.log(f.files[i].name  +  "     " + parseInt(f.files[i].size/1024) + "KB");
+		}
+
+		var file = f.files[0];
+
+		var reader = new FileReader();
+
+		reader.addEventListener("loadstart", function(){
+			console.log("start ....");
+		});
+
+		reader.addEventListener("progress", function(){
+			console.log("progress ....");
+		});
+
+		reader.addEventListener("load", function(){
+
+			//只有读取完毕之后，才可以访问result
+			console.log(reader.result);
+
+	/*		var img = new Image();
+			img.onload = function(){
+				document.body.appendChild(img);
+			}
+			img.src = reader.result;*/
+
+		}, false);
+
+
+        //按照文本方式读取文件内容
+		// reader.readAsText(file);
+
+        //按照url读取，用于读取图片
+		// reader.readAsDataURL(file);
+
+        //按照二进制字符串读取
+		reader.readAsBinaryString(file);
+
+	}
+
+
+
+
+</script>
+
+</body>
+</html>

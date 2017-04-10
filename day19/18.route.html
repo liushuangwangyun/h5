@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ui-route</title>
+</head>
+
+<body ng-app="myApp">
+
+    <a ui-sref="home">首页</a>
+    <a ui-sref="settings">设置</a>
+    <hr>
+    <div ui-view></div>
+
+
+    <script src="../angular-1.5.8/angular.min.js"></script>
+    <script src="../angular-1.5.8/angular-ui-router.js"></script>
+
+    <script type="text/javascript">
+    var app = angular.module('myApp', ['ui.router']);
+    app.config(function($stateProvider, $urlRouterProvider) {
+        $stateProvider.state('home', {
+            url: '/home',
+            templateUrl: 'test.html',
+        }).state('home.user', {
+            url: '/user',
+            template: '<div>Hello</div>',
+        }).state('home.profile', {
+            url: '/profile',
+            template: '<div>world</div>',
+        }).state('settings', {
+            url: '/settings',
+            template: '<div>settings</div>',
+        });
+        $urlRouterProvider.otherwise('home');
+    });
+    </script>
+
+</body>
+
+</html>
